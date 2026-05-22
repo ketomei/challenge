@@ -29,7 +29,7 @@ body {
 .month-label { font-size: 14px; font-weight: 500; min-width: 80px; text-align: center; color: #111; }
 .settings-btn { background: #fff; border: 0.5px solid #ddd; border-radius: var(--border-radius-md); padding: 4px 10px; cursor: pointer; font-size: 13px; color: #666; font-family: var(--font-sans); }
 .settings-btn:hover { background: #f0f0f0; }
-
+ 
 /* 로그인 영역 */
 .auth-bar { display: flex; align-items: center; gap: 8px; }
 .auth-btn { display: flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: var(--border-radius-md); border: 0.5px solid #ddd; background: #fff; cursor: pointer; font-size: 13px; font-family: var(--font-sans); color: #333; }
@@ -40,7 +40,7 @@ body {
 .user-name { font-size: 12px; color: #666; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sync-badge { font-size: 10px; padding: 2px 6px; border-radius: 10px; background: #e6f4ea; color: #1D9E75; font-weight: 500; }
 .sync-badge.offline { background: #f3f3f3; color: #aaa; }
-
+ 
 .phase-legend { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
 .pill { font-size: 11px; padding: 3px 9px; border-radius: 20px; font-weight: 500; }
 .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
@@ -54,7 +54,7 @@ body {
 .dot-row { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 2px; }
 .dot { width: 5px; height: 5px; border-radius: 50%; background: #ddd; }
 .dot.done { background: #1D9E75; }
-
+ 
 .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 100; align-items: flex-start; justify-content: center; padding: 1rem; overflow-y: auto; }
 .modal-bg.open { display: flex; }
 .modal { background: #ffffff; border-radius: var(--border-radius-lg); border: 0.5px solid #d0d0d0; padding: 1.25rem; width: 100%; max-width: 440px; margin: auto; }
@@ -88,7 +88,7 @@ textarea.num-input { resize: vertical; min-height: 44px; }
 .supp-check input { cursor: pointer; accent-color: #1D9E75; width: 14px; height: 14px; }
 .save-btn { width: 100%; padding: 8px; background: #185FA5; color: #fff; border: none; border-radius: var(--border-radius-md); font-size: 14px; cursor: pointer; margin-top: 0.75rem; font-family: var(--font-sans); }
 .save-btn:hover { background: #0C447C; }
-
+ 
 .settings-modal { background: #ffffff; border-radius: var(--border-radius-lg); border: 0.5px solid #d0d0d0; padding: 1.25rem; width: 100%; max-width: 480px; margin: auto; }
 .col-header { font-size: 11px; color: #666; font-weight: 500; }
 .color-pick { width: 100%; padding: 4px 6px; font-size: 12px; border: 0.5px solid #ddd; border-radius: var(--border-radius-md); background: #fff; color: #111; font-family: var(--font-sans); }
@@ -98,7 +98,7 @@ textarea.num-input { resize: vertical; min-height: 44px; }
 .remove-btn:hover { color: #E24B4A; }
 .settings-save-btn { width: 100%; padding: 8px; background: #185FA5; color: #fff; border: none; border-radius: var(--border-radius-md); font-size: 14px; cursor: pointer; margin-top: 0.75rem; font-family: var(--font-sans); }
 .settings-save-btn:hover { background: #0C447C; }
-
+ 
 .progress-section { margin-top: 1.25rem; padding-top: 1rem; border-top: 0.5px solid #e5e5e5; }
 .prog-label { font-size: 12px; color: #888; margin-bottom: 5px; }
 .prog-bg { height: 6px; background: #e5e5e5; border-radius: 4px; overflow: hidden; }
@@ -107,7 +107,7 @@ textarea.num-input { resize: vertical; min-height: 44px; }
 .stat-card { background: #f3f3f3; border-radius: var(--border-radius-md); padding: 8px 10px; text-align: center; }
 .stat-num { font-size: 18px; font-weight: 500; color: #111; }
 .stat-lbl { font-size: 11px; color: #888; }
-
+ 
 .toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); background: #111; color: #fff; font-size: 13px; padding: 8px 16px; border-radius: 20px; z-index: 200; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
 .toast.show { opacity: 1; }
 </style>
@@ -149,7 +149,7 @@ textarea.num-input { resize: vertical; min-height: 44px; }
     </div>
   </div>
 </div>
-
+ 
 <!-- 기록 모달 -->
 <div class="modal-bg" id="record-modal-bg" onclick="if(event.target===this)closeRecordModal()">
   <div class="modal">
@@ -221,7 +221,7 @@ textarea.num-input { resize: vertical; min-height: 44px; }
     <button class="save-btn" onclick="saveRecord()">저장</button>
   </div>
 </div>
-
+ 
 <!-- 설정 모달 -->
 <div class="modal-bg" id="settings-modal-bg" onclick="if(event.target===this)closeSettings()">
   <div class="settings-modal">
@@ -239,9 +239,9 @@ textarea.num-input { resize: vertical; min-height: 44px; }
     <button class="settings-save-btn" onclick="saveSettings()">저장</button>
   </div>
 </div>
-
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <!-- Firebase SDK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -249,7 +249,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChang
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, onSnapshot }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
+ 
 const firebaseConfig = {
   apiKey: "AIzaSyD4pioWdQRqlcHBHTeDnpVZGrrrO289KKs",
   authDomain: "ketomei-chall.firebaseapp.com",
@@ -259,11 +259,11 @@ const firebaseConfig = {
   appId: "1:519281190285:web:ce4413f135d48956b849c4",
   measurementId: "G-E6CLWG34SJ"
 };
-
+ 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
+ 
 const STORAGE_KEY = 'challenge2026_v3';
 const PHASE_KEY = 'challenge2026_phases_v3';
 const DEFAULT_PHASES = [
@@ -279,15 +279,15 @@ const DEFAULT_PHASES = [
   {name:'예정일',color:'#FCEBEB',textColor:'#A32D2D',start:'2026-07-15',end:'2026-07-15'},
   {name:'P1',color:'#E6F1FB',textColor:'#0C447C',start:'2026-07-16',end:'2026-07-21'},
 ];
-
+ 
 let phases = DEFAULT_PHASES;
 let records = {};
 let currentUser = null;
 let unsubscribe = null;
-
+ 
 try { phases = JSON.parse(localStorage.getItem(PHASE_KEY)) || DEFAULT_PHASES; } catch(e) {}
 try { records = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) {}
-
+ 
 // ---- 토스트 ----
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -295,7 +295,7 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
-
+ 
 // ---- Auth UI ----
 function renderAuthBar(user) {
   const bar = document.getElementById('auth-bar');
@@ -314,7 +314,7 @@ function renderAuthBar(user) {
       </button>`;
   }
 }
-
+ 
 window.doSignIn = async () => {
   try {
     const provider = new GoogleAuthProvider();
@@ -326,20 +326,20 @@ window.doSignOut = async () => {
   await signOut(auth);
   showToast('로그아웃되었습니다');
 };
-
+ 
 // ---- Firestore 실시간 동기화 ----
 function subscribeFirestore(uid) {
   if (unsubscribe) unsubscribe();
   const recRef = doc(db, 'users', uid, 'data', 'records');
   const phaseRef = doc(db, 'users', uid, 'data', 'phases');
-
+ 
   unsubscribe = onSnapshot(recRef, snap => {
     if (snap.exists()) {
       records = snap.data().records || {};
       window.renderCalendar();
     }
   });
-
+ 
   // 페이즈도 불러오기 (최초 1회)
   getDoc(phaseRef).then(snap => {
     if (snap.exists()) {
@@ -348,19 +348,19 @@ function subscribeFirestore(uid) {
     }
   });
 }
-
+ 
 async function saveToFirestore() {
   if (!currentUser) return;
   const uid = currentUser.uid;
   await setDoc(doc(db, 'users', uid, 'data', 'records'), { records });
 }
-
+ 
 async function savePhasesToFirestore() {
   if (!currentUser) return;
   const uid = currentUser.uid;
   await setDoc(doc(db, 'users', uid, 'data', 'phases'), { phases });
 }
-
+ 
 // ---- Auth 상태 감지 ----
 onAuthStateChanged(auth, user => {
   currentUser = user;
@@ -375,7 +375,7 @@ onAuthStateChanged(auth, user => {
     window.renderCalendar();
   }
 });
-
+ 
 // ---- 저장 (로컬 + 클라우드) ----
 window.saveRec = async () => {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(records)); } catch(e) {}
@@ -385,7 +385,7 @@ window.savePhases = async () => {
   try { localStorage.setItem(PHASE_KEY, JSON.stringify(phases)); } catch(e) {}
   if (currentUser) await savePhasesToFirestore();
 };
-
+ 
 // ---- 캘린더 & 로직 ----
 const COLOR_PRESETS = [
   {bg:'#E6F1FB',fg:'#0C447C',label:'파랑'},{bg:'#EAF3DE',fg:'#3B6D11',label:'초록'},
@@ -393,19 +393,19 @@ const COLOR_PRESETS = [
   {bg:'#FCEBEB',fg:'#A32D2D',label:'빨강'},{bg:'#EEEDFE',fg:'#3C3489',label:'보라'},
   {bg:'#F1EFE8',fg:'#444441',label:'회색'},
 ];
-
+ 
 let curYear = 2026, curMonth = 4;
-
+ 
 window.changeMonth = d => { curMonth+=d; if(curMonth>11){curMonth=0;curYear++;}if(curMonth<0){curMonth=11;curYear--;}window.renderCalendar(); };
-
+ 
 function getPhase(ds) { for(const p of phases) if(ds>=p.start&&ds<=p.end) return p; return null; }
-
+ 
 function renderLegend() {
   const seen=new Set(),out=[];
   phases.forEach(p=>{const k=p.name+'|'+p.color;if(!seen.has(k)){seen.add(k);out.push(p);}});
   document.getElementById('phase-legend').innerHTML=out.map(p=>`<span class="pill" style="background:${p.color};color:${p.textColor}">${p.name}</span>`).join('');
 }
-
+ 
 window.renderCalendar = () => {
   renderLegend();
   const months=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
@@ -432,10 +432,10 @@ window.renderCalendar = () => {
   document.getElementById('calendar').innerHTML=html;
   updateStats();
 };
-
+ 
 function setRadio(name,val){document.querySelectorAll(`input[name="${name}"]`).forEach(r=>{r.checked=(r.value===String(val));});}
 function getRadio(name){const el=document.querySelector(`input[name="${name}"]:checked`);return el?el.value:'';}
-
+ 
 let currentDate='';
 window.openRecord = ds => {
   currentDate=ds;
@@ -467,7 +467,7 @@ window.openRecord = ds => {
   document.getElementById('record-modal-bg').classList.add('open');
 };
 window.closeRecordModal = () => document.getElementById('record-modal-bg').classList.remove('open');
-
+ 
 window.saveRecord = async () => {
   const mt=document.getElementById('f-morning-text').value.trim();
   const lt=document.getElementById('f-lunch-text').value.trim();
@@ -496,10 +496,10 @@ window.saveRecord = async () => {
   window.renderCalendar();
   showToast(currentUser ? '저장 완료 ☁' : '저장 완료');
 };
-
+ 
 window.openSettings = () => { renderPhaseRows(); document.getElementById('settings-modal-bg').classList.add('open'); };
 window.closeSettings = () => document.getElementById('settings-modal-bg').classList.remove('open');
-
+ 
 function renderPhaseRows() {
   document.getElementById('phase-rows').innerHTML=phases.map((p,i)=>{
     const opts=COLOR_PRESETS.map(c=>`<option value="${c.bg}|${c.fg}" ${p.color===c.bg?'selected':''}>${c.label}</option>`).join('');
@@ -516,7 +516,7 @@ window.updatePhaseColor = (i,val) => { const[bg,fg]=val.split('|'); phases[i].co
 window.removePhase = i => { phases.splice(i,1); renderPhaseRows(); };
 window.addPhaseRow = () => { phases.push({name:'새 페이즈',color:'#F1EFE8',textColor:'#444441',start:'2026-05-25',end:'2026-05-25'}); renderPhaseRows(); };
 window.saveSettings = async () => { await window.savePhases(); window.closeSettings(); window.renderCalendar(); showToast('페이즈 저장 완료'); };
-
+ 
 function updateStats() {
   const today=new Date();
   const todayStr=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
@@ -541,7 +541,7 @@ function updateStats() {
   document.getElementById('s-streak').textContent=streak;
   document.getElementById('s-pct').textContent=pct+'%';
 }
-
+ 
 window.renderCalendar();
 </script>
 </body>
