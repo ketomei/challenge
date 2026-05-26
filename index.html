@@ -341,12 +341,21 @@ onAuthStateChanged(auth, user => {
   currentUser = user; renderAuthBar(user);
   if (user) {
     if (fbUnsub) fbUnsub();
+    // records만 실시간 구독 — phases는 onSnapshot 사용 안 함 (저장 직후 덮어쓰기 방지)
     fbUnsub = onSnapshot(doc(db,'users',user.uid,'data','records'), snap => {
       if (snap.exists()) { records = snap.data().records || {}; renderCalendar(); }
     });
-    getDoc(doc(db,'users',user.uid,'data','phases')).then(snap => {
-      if (snap.exists()) { phases = snap.data().phases || []; renderCalendar(); }
-    });
+    // phases는 최초 1회만 로드, 로컬스토리지 우선
+    const localPhases = (() => { try{ return JSON.parse(localStorage.getItem(PHASE_KEY))||null; }catch(e){ return null; }})();
+    if (localPhases && localPhases.length > 0) {
+      phases = localPhases;
+      renderCalendar();
+    } else {
+      getDoc(doc(db,'users',user.uid,'data','phases')).then(snap => {
+        if (snap.exists()) { phases = snap.data().phases || []; }
+        renderCalendar();
+      });
+    }
     showToast(`${user.displayName||''}님 환영합니다 ☁`);
   } else {
     if (fbUnsub) { fbUnsub(); fbUnsub = null; }
@@ -509,7 +518,14 @@ window.App = {
     showToast(currentUser?'저장 완료 ☁':'저장 완료');
   },
 
-  openSettings()  { renderPhaseRows(); document.getElementById('settings-modal-bg').classList.add('open'); },
+  openSettings() {
+    // 이미 열려있으면 DOM 재초기화 안 함 (수정 중인 내용 보호)
+    const modal = document.getElementById('settings-modal-bg');
+    if (!modal.classList.contains('open')) {
+      renderPhaseRows();
+    }
+    modal.classList.add('open');
+  },
   closeSettings() { document.getElementById('settings-modal-bg').classList.remove('open'); },
 
   autoGenerate() {
@@ -533,11 +549,16 @@ window.App = {
   },
 
   async saveSettings() {
-    // 저장 시점에 DOM에서 최신 값을 읽어옴 → 수동 수정이 완벽하게 반영됨
+    // DOM에서 최신 값 읽기
     phases = readPhasesFromDOM();
-    await persistPhases();
+    // 로컬스토리지 먼저 저장 (Firestore 응답 전에 페이지 상태 보호)
+    try { localStorage.setItem(PHASE_KEY, JSON.stringify(phases)); } catch(e) {}
+    // Firestore 저장 (비동기, 실패해도 로컬은 이미 저장됨)
+    if (currentUser) {
+      setDoc(doc(db,'users',currentUser.uid,'data','phases'), {phases}).catch(e => console.warn('phases 저장 실패', e));
+    }
     this.closeSettings();
-    renderCalendar();     // 달력 즉시 갱신
+    renderCalendar();
     showToast('페이즈 저장 완료');
   },
 };
