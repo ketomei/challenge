@@ -39,7 +39,6 @@ body { font-family: var(--font-sans); background: #f7f7f7; min-height: 100vh; di
 .dot-row { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 2px; }
 .dot { width: 5px; height: 5px; border-radius: 50%; background: #ddd; }
 .dot.done { background: #1D9E75; }
-
 .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 100; align-items: flex-start; justify-content: center; padding: 1rem; overflow-y: auto; }
 .modal-bg.open { display: flex; }
 .modal { background: #fff; border-radius: var(--radius-lg); border: 0.5px solid #d0d0d0; padding: 1.25rem; width: 100%; max-width: 440px; margin: auto; }
@@ -73,11 +72,7 @@ textarea.num-input { resize: vertical; min-height: 44px; }
 .supp-check input { cursor: pointer; accent-color: #1D9E75; width: 14px; height: 14px; }
 .save-btn { width: 100%; padding: 8px; background: #185FA5; color: #fff; border: none; border-radius: var(--radius-md); font-size: 14px; cursor: pointer; margin-top: 0.75rem; font-family: var(--font-sans); }
 .save-btn:hover { background: #0C447C; }
-
-/* ── 페이즈 설정 모달 ── */
 .settings-modal { background: #fff; border-radius: var(--radius-lg); border: 0.5px solid #d0d0d0; padding: 1.25rem; width: 100%; max-width: 580px; margin: auto; }
-
-/* 자동설정 박스 */
 .auto-box { background: #f0f7ff; border: 0.5px solid #b8d8f8; border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px; }
 .auto-box-title { font-size: 13px; font-weight: 600; color: #185FA5; margin-bottom: 8px; }
 .auto-row { display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; }
@@ -88,10 +83,7 @@ textarea.num-input { resize: vertical; min-height: 44px; }
 .auto-input-sm { width: 70px; }
 .auto-btn { padding: 6px 14px; background: #185FA5; color: #fff; border: none; border-radius: var(--radius-md); font-size: 13px; cursor: pointer; font-family: var(--font-sans); white-space: nowrap; }
 .auto-btn:hover { background: #0C447C; }
-.auto-cycles-row { display: flex; align-items: center; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
 .auto-hint { font-size: 11px; color: #888; margin-top: 6px; line-height: 1.5; }
-
-/* 수동 편집 테이블 */
 .divider { display: flex; align-items: center; gap: 8px; margin: 14px 0 10px; }
 .divider-line { flex: 1; height: 0.5px; background: #e5e5e5; }
 .divider-text { font-size: 12px; color: #aaa; white-space: nowrap; }
@@ -106,7 +98,6 @@ textarea.num-input { resize: vertical; min-height: 44px; }
 .remove-btn:hover { color: #E24B4A; }
 .settings-save-btn { width: 100%; padding: 8px; background: #185FA5; color: #fff; border: none; border-radius: var(--radius-md); font-size: 14px; cursor: pointer; margin-top: 12px; font-family: var(--font-sans); }
 .settings-save-btn:hover { background: #0C447C; }
-
 .progress-section { margin-top: 1.25rem; padding-top: 1rem; border-top: 0.5px solid #e5e5e5; }
 .prog-label { font-size: 12px; color: #888; margin-bottom: 5px; }
 .prog-bg { height: 6px; background: #e5e5e5; border-radius: 4px; overflow: hidden; }
@@ -125,11 +116,11 @@ textarea.num-input { resize: vertical; min-height: 44px; }
     <h1>챌린지 차트 2026</h1>
     <div class="header-right">
       <div class="month-nav">
-        <button class="nav-btn" onclick="changeMonth(-1)">‹</button>
+        <button class="nav-btn" onclick="App.changeMonth(-1)">‹</button>
         <span class="month-label" id="month-label"></span>
-        <button class="nav-btn" onclick="changeMonth(1)">›</button>
+        <button class="nav-btn" onclick="App.changeMonth(1)">›</button>
       </div>
-      <button class="settings-btn" onclick="openSettings()">⚙ 페이즈 설정</button>
+      <button class="settings-btn" onclick="App.openSettings()">⚙ 페이즈 설정</button>
       <div class="auth-bar" id="auth-bar"></div>
     </div>
   </div>
@@ -153,11 +144,11 @@ textarea.num-input { resize: vertical; min-height: 44px; }
 </div>
 
 <!-- 기록 모달 -->
-<div class="modal-bg" id="record-modal-bg" onclick="if(event.target===this)closeRecordModal()">
+<div class="modal-bg" id="record-modal-bg" onclick="if(event.target===this)App.closeRecordModal()">
   <div class="modal">
     <div class="modal-header">
       <span class="modal-title" id="modal-date-title"></span>
-      <button class="close-btn" onclick="closeRecordModal()">×</button>
+      <button class="close-btn" onclick="App.closeRecordModal()">×</button>
     </div>
     <div id="modal-phase-tag" style="margin-bottom:0.75rem"></div>
     <div class="section-label">식단</div>
@@ -213,19 +204,17 @@ textarea.num-input { resize: vertical; min-height: 44px; }
     </div>
     <div class="section-label">메모</div>
     <textarea class="num-input" id="f-memo" placeholder="오늘의 메모..."></textarea>
-    <button class="save-btn" onclick="saveRecord()">저장</button>
+    <button class="save-btn" onclick="App.saveRecord()">저장</button>
   </div>
 </div>
 
 <!-- 페이즈 설정 모달 -->
-<div class="modal-bg" id="settings-modal-bg" onclick="if(event.target===this)closeSettings()">
+<div class="modal-bg" id="settings-modal-bg" onclick="if(event.target===this)App.closeSettings()">
   <div class="settings-modal">
     <div class="modal-header">
       <span class="modal-title">페이즈 설정</span>
-      <button class="close-btn" onclick="closeSettings()">×</button>
+      <button class="close-btn" onclick="App.closeSettings()">×</button>
     </div>
-
-    <!-- 자동 설정 박스 -->
     <div class="auto-box">
       <div class="auto-box-title">🔄 자동 설정 — 마지막 생리 시작일 입력</div>
       <div class="auto-row">
@@ -237,20 +226,14 @@ textarea.num-input { resize: vertical; min-height: 44px; }
           <span class="auto-label">생성할 주기 수</span>
           <input class="auto-input auto-input-sm" type="number" id="auto-cycles" value="3" min="1" max="12">
         </div>
-        <button class="auto-btn" onclick="autoGeneratePhases()">자동 생성</button>
+        <button class="auto-btn" onclick="App.autoGenerate()">자동 생성</button>
       </div>
       <div class="auto-hint">
         민디 펠츠 박사의 28일 호르몬 리셋 기준으로 자동 생성됩니다.<br>
         P1(1~11일) · 배란기(12~14일) · P3(15~21일) · P4(22~28일) · 예정일(29일)
       </div>
     </div>
-
-    <!-- 수동 편집 -->
-    <div class="divider">
-      <div class="divider-line"></div>
-      <span class="divider-text">직접 수정</span>
-      <div class="divider-line"></div>
-    </div>
+    <div class="divider"><div class="divider-line"></div><span class="divider-text">직접 수정</span><div class="divider-line"></div></div>
     <div class="ps-grid" style="margin-bottom:4px">
       <span class="col-header">페이즈 이름</span>
       <span class="col-header">색상</span>
@@ -259,13 +242,14 @@ textarea.num-input { resize: vertical; min-height: 44px; }
       <span></span>
     </div>
     <div id="phase-rows"></div>
-    <button class="add-phase-btn" onclick="addPhaseRow()">+ 행 추가</button>
-    <button class="settings-save-btn" onclick="saveSettings()">저장</button>
+    <button class="add-phase-btn" onclick="App.addPhaseRow()">+ 행 추가</button>
+    <button class="settings-save-btn" onclick="App.saveSettings()">저장</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
+<!-- Firebase 먼저 일반 스크립트로 로드 -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
@@ -282,12 +266,12 @@ const firebaseConfig = {
   appId: "1:519281190285:web:ce4413f135d48956b849c4"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const fbApp = initializeApp(firebaseConfig);
+const auth  = getAuth(fbApp);
+const db    = getFirestore(fbApp);
 
-const STORAGE_KEY = 'challenge2026_v5';
-const PHASE_KEY   = 'challenge2026_phases_v5';
+const STORAGE_KEY = 'challenge2026_v6';
+const PHASE_KEY   = 'challenge2026_phases_v6';
 
 const COLOR_PRESETS = [
   {bg:'#E6F1FB',fg:'#0C447C',label:'파랑'},
@@ -300,259 +284,265 @@ const COLOR_PRESETS = [
   {bg:'#FFF3CD',fg:'#856404',label:'골드'},
 ];
 
-// 페이즈 템플릿 (28일 기준)
-// offset: 시작일 기준 더할 일수, days: 기간
 const PHASE_TEMPLATE = [
-  { name:'P1',    color:'#E6F1FB', fg:'#0C447C', startOffset:0,  endOffset:10 }, // 1~11일
-  { name:'배란기', color:'#EAF3DE', fg:'#3B6D11', startOffset:11, endOffset:13 }, // 12~14일
-  { name:'P3',    color:'#FAEEDA', fg:'#854F0B', startOffset:14, endOffset:20 }, // 15~21일
-  { name:'P4',    color:'#FBEAF0', fg:'#72243E', startOffset:21, endOffset:27 }, // 22~28일
-  { name:'예정일', color:'#FCEBEB', fg:'#A32D2D', startOffset:28, endOffset:28 }, // 29일(다음 주기 시작일)
+  { name:'P1',    color:'#E6F1FB', fg:'#0C447C', s:0,  e:10 },
+  { name:'배란기', color:'#EAF3DE', fg:'#3B6D11', s:11, e:13 },
+  { name:'P3',    color:'#FAEEDA', fg:'#854F0B', s:14, e:20 },
+  { name:'P4',    color:'#FBEAF0', fg:'#72243E', s:21, e:27 },
+  { name:'예정일', color:'#FCEBEB', fg:'#A32D2D', s:28, e:28 },
 ];
 
-let phases  = [];
-let records = {};
-let currentUser = null;
-let unsubscribe = null;
+// ── 전역 상태 (App 네임스페이스로 노출) ──
+// phases 는 App 내부에서만 관리하고 renderPhaseRows 로 DOM에 반영
+let phases       = [];
+let records      = {};
+let currentUser  = null;
+let fbUnsub      = null;
+let curYear      = new Date().getFullYear();
+let curMonth     = new Date().getMonth();
+let currentDate  = '';
 
 try { phases  = JSON.parse(localStorage.getItem(PHASE_KEY))   || []; } catch(e) {}
 try { records = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) {}
 
-// ── 날짜 유틸 ──
-function addDays(dateStr, n) {
-  const d = new Date(dateStr);
-  d.setDate(d.getDate() + n);
-  return d.toISOString().slice(0,10);
+// ── 유틸 ──
+function addDays(ds, n) {
+  const d = new Date(ds); d.setDate(d.getDate() + n); return d.toISOString().slice(0,10);
 }
-
-// ── 자동 생성 ──
-window.autoGeneratePhases = () => {
-  const startDate = document.getElementById('auto-start-date').value;
-  const cycles    = parseInt(document.getElementById('auto-cycles').value) || 3;
-  if (!startDate) { showToast('생리 시작일을 입력하세요'); return; }
-
-  const generated = [];
-  for (let c = 0; c < cycles; c++) {
-    const cycleStart = addDays(startDate, c * 28); // 28일 주기
-    PHASE_TEMPLATE.forEach(t => {
-      generated.push({
-        name:      t.name,
-        color:     t.color,
-        textColor: t.fg,
-        start:     addDays(cycleStart, t.startOffset),
-        end:       addDays(cycleStart, t.endOffset),
-      });
-    });
-  }
-  phases = generated;
-  renderPhaseRows();
-  showToast(`${cycles}주기 자동 생성 완료! 아래에서 날짜를 조정하고 저장하세요.`);
-};
-
-// ── 토스트 ──
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
+function getPhase(ds) { for (const p of phases) if (ds >= p.start && ds <= p.end) return p; return null; }
+function setRadio(name, val) { document.querySelectorAll(`input[name="${name}"]`).forEach(r => { r.checked = r.value === String(val); }); }
+function getRadio(name) { const el = document.querySelector(`input[name="${name}"]:checked`); return el ? el.value : ''; }
+
+// ── 저장 ──
+async function persistRec()    { try{localStorage.setItem(STORAGE_KEY, JSON.stringify(records));}catch(e){} if(currentUser) await setDoc(doc(db,'users',currentUser.uid,'data','records'),{records}); }
+async function persistPhases() { try{localStorage.setItem(PHASE_KEY,   JSON.stringify(phases)); }catch(e){} if(currentUser) await setDoc(doc(db,'users',currentUser.uid,'data','phases'), {phases});  }
 
 // ── Auth ──
 function renderAuthBar(user) {
   const bar = document.getElementById('auth-bar');
-  if (user) {
-    bar.innerHTML = `
-      <span class="sync-badge">☁ 클라우드 동기화</span>
-      ${user.photoURL ? `<img class="user-avatar" src="${user.photoURL}">` : ''}
-      <span class="user-name">${user.displayName||user.email}</span>
-      <button class="auth-btn" onclick="window.doSignOut()">로그아웃</button>`;
-  } else {
-    bar.innerHTML = `
-      <span class="sync-badge offline">로컬 저장</span>
-      <button class="auth-btn google" onclick="window.doSignIn()">
-        <svg width="14" height="14" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 7.293C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
-        구글 로그인
-      </button>`;
-  }
+  bar.innerHTML = user ? `
+    <span class="sync-badge">☁ 클라우드 동기화</span>
+    ${user.photoURL ? `<img class="user-avatar" src="${user.photoURL}">` : ''}
+    <span class="user-name">${user.displayName||user.email}</span>
+    <button class="auth-btn" onclick="App.signOut()">로그아웃</button>`
+  : `<span class="sync-badge offline">로컬 저장</span>
+    <button class="auth-btn google" onclick="App.signIn()">
+      <svg width="14" height="14" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 7.293C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+      구글 로그인
+    </button>`;
 }
-window.doSignIn = async () => { try { await signInWithPopup(auth, new GoogleAuthProvider()); } catch(e) { showToast('로그인 실패: ' + e.message); } };
-window.doSignOut = async () => { if (unsubscribe) { unsubscribe(); unsubscribe = null; } await signOut(auth); showToast('로그아웃되었습니다'); };
-
-// ── Firestore ──
-function subscribeFirestore(uid) {
-  if (unsubscribe) unsubscribe();
-  unsubscribe = onSnapshot(doc(db,'users',uid,'data','records'), snap => {
-    if (snap.exists()) { records = snap.data().records || {}; window.renderCalendar(); }
-  });
-  getDoc(doc(db,'users',uid,'data','phases')).then(snap => {
-    if (snap.exists()) { phases = snap.data().phases || []; window.renderCalendar(); }
-  });
-}
-async function saveToFirestore()       { if (!currentUser) return; await setDoc(doc(db,'users',currentUser.uid,'data','records'), {records}); }
-async function savePhasesToFirestore() { if (!currentUser) return; await setDoc(doc(db,'users',currentUser.uid,'data','phases'),  {phases});  }
 
 onAuthStateChanged(auth, user => {
   currentUser = user; renderAuthBar(user);
-  if (user) { subscribeFirestore(user.uid); showToast(`${user.displayName||''}님 환영합니다 ☁`); }
-  else {
-    if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+  if (user) {
+    if (fbUnsub) fbUnsub();
+    fbUnsub = onSnapshot(doc(db,'users',user.uid,'data','records'), snap => {
+      if (snap.exists()) { records = snap.data().records || {}; renderCalendar(); }
+    });
+    getDoc(doc(db,'users',user.uid,'data','phases')).then(snap => {
+      if (snap.exists()) { phases = snap.data().phases || []; renderCalendar(); }
+    });
+    showToast(`${user.displayName||''}님 환영합니다 ☁`);
+  } else {
+    if (fbUnsub) { fbUnsub(); fbUnsub = null; }
     try { records = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { records = {}; }
     try { phases  = JSON.parse(localStorage.getItem(PHASE_KEY))   || []; } catch(e) {}
-    window.renderCalendar();
+    renderCalendar();
   }
 });
 
-window.saveRec    = async () => { try{localStorage.setItem(STORAGE_KEY,JSON.stringify(records));}catch(e){} if(currentUser) await saveToFirestore(); };
-window.savePhases = async () => { try{localStorage.setItem(PHASE_KEY,  JSON.stringify(phases)); }catch(e){} if(currentUser) await savePhasesToFirestore(); };
-
 // ── 캘린더 ──
-let curYear  = new Date().getFullYear();
-let curMonth = new Date().getMonth();
-
-window.changeMonth = d => { curMonth+=d; if(curMonth>11){curMonth=0;curYear++;}if(curMonth<0){curMonth=11;curYear--;} window.renderCalendar(); };
-function getPhase(ds) { for (const p of phases) if (ds >= p.start && ds <= p.end) return p; return null; }
-
 function renderLegend() {
-  const seen=new Set(), out=[];
-  phases.forEach(p=>{ const k=p.name+'|'+p.color; if(!seen.has(k)){seen.add(k);out.push(p);} });
-  document.getElementById('phase-legend').innerHTML = out.map(p=>`<span class="pill" style="background:${p.color};color:${p.textColor}">${p.name}</span>`).join('');
+  const seen = new Set(), out = [];
+  phases.forEach(p => { const k = p.name+'|'+p.color; if (!seen.has(k)) { seen.add(k); out.push(p); } });
+  document.getElementById('phase-legend').innerHTML = out.map(p =>
+    `<span class="pill" style="background:${p.color};color:${p.textColor}">${p.name}</span>`).join('');
 }
 
-window.renderCalendar = () => {
+function renderCalendar() {
   renderLegend();
-  const months=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
   document.getElementById('month-label').textContent = `${curYear}년 ${months[curMonth]}`;
   const today    = new Date();
   const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-  const firstDay    = new Date(curYear,curMonth,1).getDay();
-  const daysInMonth = new Date(curYear,curMonth+1,0).getDate();
+  const firstDay    = new Date(curYear, curMonth, 1).getDay();
+  const daysInMonth = new Date(curYear, curMonth+1, 0).getDate();
   let html = '';
-  for (let i=0;i<firstDay;i++) html += '<div class="day-cell empty"></div>';
-  for (let d=1;d<=daysInMonth;d++) {
+  for (let i = 0; i < firstDay; i++) html += '<div class="day-cell empty"></div>';
+  for (let d = 1; d <= daysInMonth; d++) {
     const ds    = `${curYear}-${String(curMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const phase = getPhase(ds);
     const bg    = phase ? `background:${phase.color};border-color:${phase.color}` : '';
     const tag   = phase ? `<span class="phase-tag" style="background:${phase.color};color:${phase.textColor}">${phase.name}</span>` : '';
     const rec   = records[ds];
-    const dots  = rec ? ['morning','lunch','dinner','water','exercise','supp'].map(k=>`<div class="dot ${rec[k]?'done':''}"></div>`).join('') : '';
-    html += `<div class="day-cell ${ds===todayStr?'today':''}" style="${bg}" onclick="window.openRecord('${ds}')">
+    const dots  = rec ? ['morning','lunch','dinner','water','exercise','supp'].map(k =>
+      `<div class="dot ${rec[k]?'done':''}"></div>`).join('') : '';
+    html += `<div class="day-cell ${ds===todayStr?'today':''}" style="${bg}" onclick="App.openRecord('${ds}')">
       <div class="day-num">${d}</div>${tag}<div class="dot-row">${dots}</div></div>`;
   }
   document.getElementById('calendar').innerHTML = html;
   updateStats();
-};
-
-// ── 기록 모달 ──
-function setRadio(name,val){ document.querySelectorAll(`input[name="${name}"]`).forEach(r=>{ r.checked=(r.value===String(val)); }); }
-function getRadio(name){ const el=document.querySelector(`input[name="${name}"]:checked`); return el?el.value:''; }
-
-let currentDate='';
-window.openRecord = ds => {
-  currentDate=ds;
-  const phase=getPhase(ds);
-  document.getElementById('modal-date-title').textContent=ds;
-  document.getElementById('modal-phase-tag').innerHTML=phase?`<span class="pill" style="background:${phase.color};color:${phase.textColor}">${phase.name}</span>`:'';
-  const rec=records[ds]||{};
-  document.getElementById('f-morning').checked=!!rec.morning; document.getElementById('f-morning-text').value=rec.morningText||'';
-  document.getElementById('f-lunch').checked=!!rec.lunch;     document.getElementById('f-lunch-text').value=rec.lunchText||'';
-  document.getElementById('f-dinner').checked=!!rec.dinner;   document.getElementById('f-dinner-text').value=rec.dinnerText||'';
-  document.getElementById('f-snack').checked=!!rec.snack;     document.getElementById('f-snack-text').value=rec.snackText||'';
-  setRadio('water', rec.water!=null?rec.water:''); setRadio('coffee', rec.coffee!=null?rec.coffee:'');
-  document.getElementById('f-sleep').value=rec.sleep||''; document.getElementById('f-sleepq').value=rec.sleepq||'';
-  document.getElementById('f-temp').value=rec.temp||'';   document.getElementById('f-weight').value=rec.weight||'';
-  document.getElementById('f-activity').checked=!!rec.activity; document.getElementById('f-activity-text').value=rec.activityText||'';
-  document.getElementById('f-exercise').checked=!!rec.exercise; document.getElementById('f-exercise-text').value=rec.exerciseText||'';
-  document.getElementById('f-supp').checked=!!rec.supp;   document.getElementById('f-supp-text').value=rec.suppText||'';
-  document.getElementById('f-bowel').checked=!!rec.bowel; setRadio('bowel-q',rec.bowelQ||'');
-  document.getElementById('f-memo').value=rec.memo||'';
-  document.getElementById('record-modal-bg').classList.add('open');
-};
-window.closeRecordModal = () => document.getElementById('record-modal-bg').classList.remove('open');
-
-window.saveRecord = async () => {
-  const mt=document.getElementById('f-morning-text').value.trim();
-  const lt=document.getElementById('f-lunch-text').value.trim();
-  const dt=document.getElementById('f-dinner-text').value.trim();
-  const st=document.getElementById('f-supp-text').value.trim();
-  const at=document.getElementById('f-activity-text').value.trim();
-  const xt=document.getElementById('f-exercise-text').value.trim();
-  const wv=getRadio('water'); const cv=getRadio('coffee');
-  records[currentDate]={
-    morning:document.getElementById('f-morning').checked||mt.length>0, morningText:mt,
-    lunch:  document.getElementById('f-lunch').checked  ||lt.length>0, lunchText:lt,
-    dinner: document.getElementById('f-dinner').checked ||dt.length>0, dinnerText:dt,
-    snack:  document.getElementById('f-snack').checked,                 snackText:document.getElementById('f-snack-text').value.trim(),
-    water:  wv!==''?parseFloat(wv):null, coffee:cv!==''?parseInt(cv):null,
-    sleep:  parseFloat(document.getElementById('f-sleep').value)||null,
-    sleepq: parseInt(document.getElementById('f-sleepq').value)||null,
-    temp:   parseFloat(document.getElementById('f-temp').value)||null,
-    weight: parseFloat(document.getElementById('f-weight').value)||null,
-    activity:document.getElementById('f-activity').checked||at.length>0, activityText:at,
-    exercise:document.getElementById('f-exercise').checked||xt.length>0, exerciseText:xt,
-    supp:   document.getElementById('f-supp').checked||st.length>0, suppText:st,
-    bowel:  document.getElementById('f-bowel').checked, bowelQ:getRadio('bowel-q'),
-    memo:   document.getElementById('f-memo').value.trim()
-  };
-  await window.saveRec();
-  window.closeRecordModal();
-  window.renderCalendar();
-  showToast(currentUser?'저장 완료 ☁':'저장 완료');
-};
-
-// ── 페이즈 설정 ──
-window.openSettings  = () => { renderPhaseRows(); document.getElementById('settings-modal-bg').classList.add('open'); };
-window.closeSettings = () => document.getElementById('settings-modal-bg').classList.remove('open');
-
-function renderPhaseRows() {
-  document.getElementById('phase-rows').innerHTML = phases.map((p,i) => {
-    const opts = COLOR_PRESETS.map(c=>`<option value="${c.bg}|${c.fg}" ${p.color===c.bg?'selected':''}>${c.label}</option>`).join('');
-    return `<div class="ps-grid">
-      <input class="ps-input" type="text" value="${p.name}" placeholder="예: P1, 배란기..." onchange="phases[${i}].name=this.value">
-      <select class="color-pick" onchange="window.updatePhaseColor(${i},this.value)">${opts}</select>
-      <input class="ps-input" type="date" value="${p.start}" onchange="phases[${i}].start=this.value">
-      <input class="ps-input" type="date" value="${p.end}"   onchange="phases[${i}].end=this.value">
-      <button class="remove-btn" onclick="window.removePhase(${i})" title="삭제">×</button>
-    </div>`;
-  }).join('');
 }
 
-window.updatePhaseColor = (i,val) => { const[bg,fg]=val.split('|'); phases[i].color=bg; phases[i].textColor=fg; };
-window.removePhase = i => { phases.splice(i,1); renderPhaseRows(); };
-window.addPhaseRow = () => { phases.push({name:'',color:'#E6F1FB',textColor:'#0C447C',start:'',end:''}); renderPhaseRows(); };
-window.saveSettings = async () => {
-  await window.savePhases();
-  window.closeSettings();
-  window.renderCalendar();
-  showToast('페이즈 저장 완료');
-};
-
-// ── 통계 ──
 function updateStats() {
-  const today=new Date();
-  const todayStr=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-  const allDays=new Set();
-  phases.forEach(p=>{ if(!p.start||!p.end)return; let d=new Date(p.start),end=new Date(p.end); while(d<=end){allDays.add(d.toISOString().slice(0,10));d.setDate(d.getDate()+1);} });
-  const total=allDays.size;
-  let recorded=0;
-  allDays.forEach(ds=>{ const r=records[ds]; if(r&&(r.morning||r.lunch||r.dinner||r.water!=null||r.exercise||r.supp))recorded++; });
-  let streak=0;
-  for(let i=0;i<90;i++){
+  const today    = new Date();
+  const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  const allDays  = new Set();
+  phases.forEach(p => { if(!p.start||!p.end) return; let d=new Date(p.start),e=new Date(p.end); while(d<=e){allDays.add(d.toISOString().slice(0,10));d.setDate(d.getDate()+1);} });
+  const total = allDays.size;
+  let recorded = 0;
+  allDays.forEach(ds => { const r=records[ds]; if(r&&(r.morning||r.lunch||r.dinner||r.water!=null||r.exercise||r.supp)) recorded++; });
+  let streak = 0;
+  for (let i=0;i<90;i++) {
     const d=new Date(today); d.setDate(d.getDate()-i);
     const ds=d.toISOString().slice(0,10);
-    if(!allDays.has(ds))continue;
+    if (!allDays.has(ds)) continue;
     const r=records[ds];
-    if(r&&(r.morning||r.lunch||r.dinner||r.water!=null))streak++;
-    else if(ds<=todayStr)break;
+    if (r&&(r.morning||r.lunch||r.dinner||r.water!=null)) streak++;
+    else if (ds<=todayStr) break;
   }
-  const pct=total>0?Math.round(recorded/total*100):0;
-  document.getElementById('prog-label').textContent=`전체 진행률 (${recorded}/${total}일)`;
-  document.getElementById('prog-fill').style.width=pct+'%';
-  document.getElementById('s-total').textContent=recorded;
-  document.getElementById('s-streak').textContent=streak;
-  document.getElementById('s-pct').textContent=pct+'%';
+  const pct = total>0 ? Math.round(recorded/total*100) : 0;
+  document.getElementById('prog-label').textContent = `전체 진행률 (${recorded}/${total}일)`;
+  document.getElementById('prog-fill').style.width  = pct+'%';
+  document.getElementById('s-total').textContent    = recorded;
+  document.getElementById('s-streak').textContent   = streak;
+  document.getElementById('s-pct').textContent      = pct+'%';
 }
 
-window.renderCalendar();
+// ── 페이즈 설정 ──
+// DOM에서 직접 읽어오는 방식 → onchange 스코프 문제 완전 해결
+function readPhasesFromDOM() {
+  const rows = document.querySelectorAll('#phase-rows .ps-row');
+  return Array.from(rows).map(row => ({
+    name:      row.querySelector('.ps-name').value,
+    color:     row.querySelector('.ps-color').value.split('|')[0],
+    textColor: row.querySelector('.ps-color').value.split('|')[1],
+    start:     row.querySelector('.ps-start').value,
+    end:       row.querySelector('.ps-end').value,
+  }));
+}
+
+function renderPhaseRows() {
+  document.getElementById('phase-rows').innerHTML = phases.map((p, i) => {
+    const opts = COLOR_PRESETS.map(c =>
+      `<option value="${c.bg}|${c.fg}" ${p.color===c.bg?'selected':''}>${c.label}</option>`).join('');
+    return `<div class="ps-grid ps-row">
+      <input class="ps-input ps-name"  type="text"  value="${p.name}"  placeholder="예: P1, 배란기...">
+      <select class="color-pick ps-color">${opts}</select>
+      <input class="ps-input ps-start" type="date"  value="${p.start}">
+      <input class="ps-input ps-end"   type="date"  value="${p.end}">
+      <button class="remove-btn" data-idx="${i}" title="삭제">×</button>
+    </div>`;
+  }).join('');
+
+  // 삭제 버튼 이벤트
+  document.querySelectorAll('#phase-rows .remove-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      phases = readPhasesFromDOM();          // 현재 DOM 값 먼저 반영
+      phases.splice(parseInt(btn.dataset.idx), 1);
+      renderPhaseRows();
+    });
+  });
+}
+
+// ── App 공개 API (HTML onclick에서 호출) ──
+window.App = {
+  changeMonth(d) { curMonth+=d; if(curMonth>11){curMonth=0;curYear++;}if(curMonth<0){curMonth=11;curYear--;} renderCalendar(); },
+
+  signIn()    { signInWithPopup(auth, new GoogleAuthProvider()).catch(e => showToast('로그인 실패: '+e.message)); },
+  signOut()   { if(fbUnsub){fbUnsub();fbUnsub=null;} signOut(auth).then(()=>showToast('로그아웃되었습니다')); },
+
+  openRecord(ds) {
+    currentDate = ds;
+    const phase = getPhase(ds);
+    document.getElementById('modal-date-title').textContent = ds;
+    document.getElementById('modal-phase-tag').innerHTML = phase
+      ? `<span class="pill" style="background:${phase.color};color:${phase.textColor}">${phase.name}</span>` : '';
+    const rec = records[ds] || {};
+    document.getElementById('f-morning').checked=!!rec.morning; document.getElementById('f-morning-text').value=rec.morningText||'';
+    document.getElementById('f-lunch').checked=!!rec.lunch;     document.getElementById('f-lunch-text').value=rec.lunchText||'';
+    document.getElementById('f-dinner').checked=!!rec.dinner;   document.getElementById('f-dinner-text').value=rec.dinnerText||'';
+    document.getElementById('f-snack').checked=!!rec.snack;     document.getElementById('f-snack-text').value=rec.snackText||'';
+    setRadio('water',  rec.water!=null?rec.water:'');
+    setRadio('coffee', rec.coffee!=null?rec.coffee:'');
+    document.getElementById('f-sleep').value=rec.sleep||'';   document.getElementById('f-sleepq').value=rec.sleepq||'';
+    document.getElementById('f-temp').value=rec.temp||'';     document.getElementById('f-weight').value=rec.weight||'';
+    document.getElementById('f-activity').checked=!!rec.activity; document.getElementById('f-activity-text').value=rec.activityText||'';
+    document.getElementById('f-exercise').checked=!!rec.exercise; document.getElementById('f-exercise-text').value=rec.exerciseText||'';
+    document.getElementById('f-supp').checked=!!rec.supp;     document.getElementById('f-supp-text').value=rec.suppText||'';
+    document.getElementById('f-bowel').checked=!!rec.bowel;   setRadio('bowel-q', rec.bowelQ||'');
+    document.getElementById('f-memo').value=rec.memo||'';
+    document.getElementById('record-modal-bg').classList.add('open');
+  },
+
+  closeRecordModal() { document.getElementById('record-modal-bg').classList.remove('open'); },
+
+  async saveRecord() {
+    const g = id => document.getElementById(id);
+    const mt=g('f-morning-text').value.trim(), lt=g('f-lunch-text').value.trim();
+    const dt=g('f-dinner-text').value.trim(),  st=g('f-supp-text').value.trim();
+    const at=g('f-activity-text').value.trim(),xt=g('f-exercise-text').value.trim();
+    const wv=getRadio('water'), cv=getRadio('coffee');
+    records[currentDate] = {
+      morning:g('f-morning').checked||mt.length>0, morningText:mt,
+      lunch:  g('f-lunch').checked  ||lt.length>0, lunchText:lt,
+      dinner: g('f-dinner').checked ||dt.length>0, dinnerText:dt,
+      snack:  g('f-snack').checked,                snackText:g('f-snack-text').value.trim(),
+      water:  wv!==''?parseFloat(wv):null,
+      coffee: cv!==''?parseInt(cv):null,
+      sleep:  parseFloat(g('f-sleep').value)||null, sleepq:parseInt(g('f-sleepq').value)||null,
+      temp:   parseFloat(g('f-temp').value)||null,  weight:parseFloat(g('f-weight').value)||null,
+      activity:g('f-activity').checked||at.length>0, activityText:at,
+      exercise:g('f-exercise').checked||xt.length>0, exerciseText:xt,
+      supp:   g('f-supp').checked||st.length>0, suppText:st,
+      bowel:  g('f-bowel').checked, bowelQ:getRadio('bowel-q'),
+      memo:   g('f-memo').value.trim()
+    };
+    await persistRec();
+    this.closeRecordModal();
+    renderCalendar();
+    showToast(currentUser?'저장 완료 ☁':'저장 완료');
+  },
+
+  openSettings()  { renderPhaseRows(); document.getElementById('settings-modal-bg').classList.add('open'); },
+  closeSettings() { document.getElementById('settings-modal-bg').classList.remove('open'); },
+
+  autoGenerate() {
+    const startDate = document.getElementById('auto-start-date').value;
+    const cycles    = parseInt(document.getElementById('auto-cycles').value) || 3;
+    if (!startDate) { showToast('생리 시작일을 입력하세요'); return; }
+    const gen = [];
+    for (let c=0; c<cycles; c++) {
+      const base = addDays(startDate, c*28);
+      PHASE_TEMPLATE.forEach(t => gen.push({ name:t.name, color:t.color, textColor:t.fg, start:addDays(base,t.s), end:addDays(base,t.e) }));
+    }
+    phases = gen;
+    renderPhaseRows();
+    showToast(`${cycles}주기 자동 생성 완료! 날짜를 조정하고 저장하세요.`);
+  },
+
+  addPhaseRow() {
+    phases = readPhasesFromDOM();   // 기존 DOM 값 보존
+    phases.push({ name:'', color:'#E6F1FB', textColor:'#0C447C', start:'', end:'' });
+    renderPhaseRows();
+  },
+
+  async saveSettings() {
+    // 저장 시점에 DOM에서 최신 값을 읽어옴 → 수동 수정이 완벽하게 반영됨
+    phases = readPhasesFromDOM();
+    await persistPhases();
+    this.closeSettings();
+    renderCalendar();     // 달력 즉시 갱신
+    showToast('페이즈 저장 완료');
+  },
+};
+
+renderCalendar();
 </script>
 </body>
 </html>
